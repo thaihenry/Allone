@@ -13,7 +13,7 @@ copy the value and remove the part with 686401326963 + mac address.
 """
 
 
-# example: python3 s20.py -m accf2344c5be -r bec54423cfac -i 192.168.0.163 -d fan -s on
+# example: python3 alone.py -m accf2344c5be -r bec54423cfac -i 192.168.0.163 -d fan -s on
 
 parser = OptionParser()
 parser.add_option("-m", "--mac", dest="mac",
@@ -52,13 +52,5 @@ def run(mac, rmac, ip, device, state):
 	print('Turning %s %s' %(device,state))
 	s.send(bytes.fromhex('686401326963' + mac + code))
   
-	try:
-	    d = s.recvfrom(24)
-	    reply = binascii.hexlify(bytearray(d[0]))
-	    print(reply)
-	except socket.error as msg :
-	    print('Receive failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1])
-	    sys.exit()
-
 
 run(options.mac, options.rmac, options.ip, options.device, options.state)
